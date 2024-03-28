@@ -115,36 +115,10 @@
             android:textStyle="bold"
             android:text="Peers Review: " />
 
-        <!-- comment_item.xml -->
-        <LinearLayout
+        <ListView
+            android:id="@+id/lv_course_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="User1"/>
-
-            <RatingBar
-                android:id="@+id/userRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="1" />
-
-            <TextView
-                android:id="@+id/userCommentTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="this is his rating"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -14,7 +14,7 @@ public class MainPage extends AppCompatActivity {
 
     private ListView lv;
     private CourseViewAdapter adapter;
-    private List<Course> courseList = new ArrayList<>();
+    private List<CourseItem> courseList = new ArrayList<>();
 
     private String[] courseName = {"COMP 7506", "COMP 7507", "COMP 7508", "COMP 7509", "COMP 7510"};
     private String[] teacherName = {"T1", "T2", "T3", "T4", "T5"};
@@ -27,7 +27,7 @@ public class MainPage extends AppCompatActivity {
 
         // Create the course list
         for (int i = 0; i < courseName.length; i++) {
-            Course course = new Course(courseName[i], teacherName[i], rating[i]);
+            CourseItem course = new CourseItem(courseName[i], teacherName[i], rating[i]);
             courseList.add(course);
         }
 
@@ -42,7 +42,7 @@ public class MainPage extends AppCompatActivity {
         adapter.setOnButtonClickListener(new CourseViewAdapter.OnButtonClickListener() {
             @Override
             public void onButtonClick(int position) {
-                Course course = courseList.get(position);
+                CourseItem course = courseList.get(position);
                 // Create an intent to start the new activity
                 Intent intent = new Intent(MainPage.this, CourseDetail.class);
 

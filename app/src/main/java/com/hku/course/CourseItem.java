@@ -1,11 +1,11 @@
 package com.hku.course;
 
-public class Course {
+public class CourseItem {
     private String courseName;
     private String teacherName;
     private String rating;
 
-    public Course(String courseName, String teacherName, String rating){
+    public CourseItem(String courseName, String teacherName, String rating){
         this.courseName = courseName;
         this.teacherName = teacherName;
         this.rating = rating;

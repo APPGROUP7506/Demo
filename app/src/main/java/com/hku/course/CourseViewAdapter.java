@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CourseViewAdapter extends ArrayAdapter<Course> {
+public class CourseViewAdapter extends ArrayAdapter<CourseItem> {
 
     private Context context;
     private OnButtonClickListener buttonClickListener;
     private int resource;
 
-    public CourseViewAdapter(Context context, int resource, List<Course> courses) {
+    public CourseViewAdapter(Context context, int resource, List<CourseItem> courses) {
         super(context, resource, courses);
         this.context = context;
         this.resource = resource;
@@ -43,7 +43,7 @@ public class CourseViewAdapter extends ArrayAdapter<Course> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Course course = getItem(position);
+        CourseItem course = getItem(position);
 
         viewHolder.courseNameTextView.setText(course.getCourseName());
         viewHolder.teacherNameTextView.setText(course.getTeacherName());
