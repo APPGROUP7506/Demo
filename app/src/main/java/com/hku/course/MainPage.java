@@ -52,7 +52,17 @@ public class MainPage extends AppCompatActivity {
                         Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
                         ///////////
                         Intent intent = new Intent(MainPage.this, CoursePage.class);
+
+                        // get the course detail information from here and sent to the next page
+                        String[] courseName = {"COMP 7506", "COMP 7507", "COMP 7508", "COMP 7509", "COMP 7510"};
+                        String[] teacherName = {"T1", "T2", "T3", "T4", "T5"};
+                        String[] rating = {"4.5", "4.0", "3.5", "3.0", "2.5"};
+
                         intent.putExtra("username", username);
+                        intent.putExtra("courseName", courseName);
+                        intent.putExtra("teacherName", teacherName);
+                        intent.putExtra("rating", rating);
+
                         startActivity(intent);
                         //////////
                         Looper.loop();
@@ -62,12 +72,18 @@ public class MainPage extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         // response.body().toString();
                         Intent intent = new Intent(MainPage.this, CoursePage.class);
-                        intent.putExtra("username", username);
 
                         // get the course detail information from here and sent to the next page
+                        String[] courseName = {"COMP 7506", "COMP 7507", "COMP 7508", "COMP 7509", "COMP 7510"};
+                        String[] teacherName = {"T1", "T2", "T3", "T4", "T5"};
+                        String[] rating = {"4.5", "4.0", "3.5", "3.0", "2.5"};
+
+                        intent.putExtra("username", username);
+                        intent.putExtra("courseName", courseName);
+                        intent.putExtra("teacherName", teacherName);
+                        intent.putExtra("rating", rating);
 
                         startActivity(intent);
-                        Looper.loop();
                     }
                 });
             }

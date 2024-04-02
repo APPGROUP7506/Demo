@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,14 +28,15 @@ public class CoursePage extends AppCompatActivity {
     private CourseViewAdapter adapter;
     private List<CourseItem> courseList = new ArrayList<>();
 
-    private String[] courseName = {"COMP 7506", "COMP 7507", "COMP 7508", "COMP 7509", "COMP 7510"};
-    private String[] teacherName = {"T1", "T2", "T3", "T4", "T5"};
-    private String[] rating = {"4.5", "4.0", "3.5", "3.0", "2.5"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
+
+        String username = getIntent().getStringExtra("username");
+        String[] courseName = getIntent().getStringArrayExtra("courseName");
+        String[] teacherName = getIntent().getStringArrayExtra("teacherName");
+        String[] rating = getIntent().getStringArrayExtra("rating");
 
         // Create the course list
         for (int i = 0; i < courseName.length; i++) {
@@ -54,13 +56,6 @@ public class CoursePage extends AppCompatActivity {
             @Override
             public void onButtonClick(int position) {
                 CourseItem course = courseList.get(position);
-                // Create an intent to start the new activity
-                Intent intent = new Intent(CoursePage.this, CourseDetail.class);
-
-                // Put the course data as extras in the intent
-                intent.putExtra("courseName", course.getCourseName());
-                intent.putExtra("rating", course.getRating());
-
                 // Set the url
                 String url = "http://8q9020g440.vicp.fun/course/detail";
 
@@ -72,22 +67,50 @@ public class CoursePage extends AppCompatActivity {
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Looper.prepare();
-                        Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                                ////////////////
+                                Intent intent = new Intent(CoursePage.this, CourseDetail.class);
+
+                                String[] userName = {"user1", "user2", "user3"};
+                                String[] userRating = {"3.5", "3.6", "5.0"};
+                                String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
+
+                                intent.putExtra("username", username);
+                                intent.putExtra("courseName", course.getCourseName());
+                                intent.putExtra("userName", userName);
+                                intent.putExtra("userRating", userRating);
+                                intent.putExtra("detailRemark", detailRemark);
+
+                                startActivity(intent);
+                                //////////////////
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Looper.prepare();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CoursePage.this, CourseDetail.class);
 
-                        Intent intent = new Intent(CoursePage.this, CourseDetail.class);
+                                String[] userName = {"user1", "user2", "user3"};
+                                String[] userRating = {"3.5", "3.6", "3.7"};
+                                String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
 
-                        // get the course detail and remark item here from response
-                        // intent.putExtras("courseDesp", ...)
+                                intent.putExtra("username", username);
+                                intent.putExtra("courseName", course.getCourseName());
+                                intent.putExtra("userName", userName);
+                                intent.putExtra("userRating", userRating);
+                                intent.putExtra("detailRemark", detailRemark);
 
-                        startActivity(intent);
-                        Looper.loop();
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
             }

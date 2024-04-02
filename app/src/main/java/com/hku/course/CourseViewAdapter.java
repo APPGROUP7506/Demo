@@ -53,14 +53,9 @@ public class CourseViewAdapter extends ArrayAdapter<CourseItem> {
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an intent to start the new activity
-                Intent intent = new Intent(context, CourseDetail.class);
-
-                // Put the course data as extras in the intent
-                intent.putExtra("courseName", course.getCourseName());
-
-                // Start the new activity
-                context.startActivity(intent);
+                if (buttonClickListener != null) {
+                    buttonClickListener.onButtonClick(position);
+                }
             }
         });
 
