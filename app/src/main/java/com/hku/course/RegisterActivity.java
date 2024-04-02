@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_reg_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://8q9020g440.vicp.fun/login/register";
+                String url = "http://8q9020g440.vicp.fun/user/login";
 
                 //请求传入的参数
                 RequestBody requestBody = new FormBody.Builder()
@@ -75,21 +75,25 @@ public class RegisterActivity extends AppCompatActivity {
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        Looper.prepare();
                         Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
                         ///////////
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+                        Looper.loop();
                         ///////////
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        Looper.prepare();
                         Toast.makeText(getApplicationContext(), "Register success", Toast.LENGTH_SHORT).show();
                         Log.d("test", "Success");
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+                        Looper.loop();
                     }
                 });
             }
