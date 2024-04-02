@@ -1,65 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Course+"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        />
 
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username:" />
-
-        <EditText
-            android:id="@+id/edit_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/sign"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Sign in to your acount"
+        android:textSize="20sp"
+        android:textColor="#b3b3b3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        />
 
-        <TextView
-            android:id="@+id/tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password:" />
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_marginTop="250dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType = "number"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:hint="Username:"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
-        <EditText
-            android:id="@+id/edit_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:layout_below="@id/edit_username"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_below="@id/edit_password"
+        android:layout_marginTop="6dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Login"/>
+        android:background="@drawable/bg_signin"
+        android:text="SIGN IN"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_marginLeft="40dp"/>
+
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="New to course+? Register"/>
+        android:layout_below="@id/edit_password"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_signin"
+        android:text="Regester"
+        android:textColor="#ffffff"
 
-</LinearLayout>
+        android:textSize="20sp" />
+
+
+</RelativeLayout>
