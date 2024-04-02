@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://127.0.0.1:8080/user/lgoin";
+                String url = "http://8q9020g440.vicp.fun/user/login";
 
                 //请求传入的参数
                 RequestBody requestBody = new FormBody.Builder()
@@ -60,19 +61,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Looper.prepare();
-                        Toast.makeText(MainActivity.this, "post请求失败", Toast.LENGTH_SHORT).show();
-
-                        //假设登录成功，此处应该放在onResponse函数中，由后端确认登录信息正确
+                        Toast.makeText(MainActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        ///////////
                         Intent intent = new Intent(MainActivity.this, MainPage.class);
                         startActivity(intent);
-
+                        finish();
+                        //////////
                         Looper.loop();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Looper.prepare();
-                        Toast.makeText(MainActivity.this, "成功,用户名为：" + et_username.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                        // response.body().toString();
+                        Intent intent = new Intent(MainActivity.this, MainPage.class);
+                        startActivity(intent);
+                        finish();
+
                         Looper.loop();
                     }
                 });
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

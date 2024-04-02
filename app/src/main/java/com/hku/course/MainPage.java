@@ -4,11 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
+import com.hku.course.utils.HttpPostRequest;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainPage extends AppCompatActivity {
 
@@ -48,11 +59,37 @@ public class MainPage extends AppCompatActivity {
 
                 // Put the course data as extras in the intent
                 intent.putExtra("courseName", course.getCourseName());
-                intent.putExtra("teacherName", course.getTeacherName());
                 intent.putExtra("rating", course.getRating());
 
-                // Start the new activity
-                startActivity(intent);
+                // Set the url
+                String url = "http://8q9020g440.vicp.fun/course/detail";
+
+                // Request for new data
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("courseName", course.getCourseName())
+                        .build();
+
+                HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Looper.prepare();
+                        Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Looper.prepare();
+
+                        Intent intent = new Intent(MainPage.this, CourseDetail.class);
+
+                        // get the course detail and remark item here from response
+                        // intent.putExtras("courseDesp", ...)
+
+                        startActivity(intent);
+                        Looper.loop();
+                    }
+                });
             }
         });
     }
