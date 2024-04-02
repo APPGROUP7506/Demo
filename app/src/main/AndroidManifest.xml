@@ -15,13 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Course">
         <activity
+            android:name=".MainPage"
+            android:exported="false" />
+        <activity
             android:name=".CourseDetail"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainPage"
+            android:name=".CoursePage"
             android:exported="false" />
 
         <meta-data
