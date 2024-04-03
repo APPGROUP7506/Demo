@@ -77,9 +77,11 @@ public class CoursePage extends AppCompatActivity {
                                 String[] userName = {"user1", "user2", "user3"};
                                 String[] userRating = {"3.5", "3.6", "5.0"};
                                 String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
+                                String description = "This is a description of this course";
 
                                 intent.putExtra("username", username);
                                 intent.putExtra("courseName", course.getCourseName());
+                                intent.putExtra("description", description);
                                 intent.putExtra("userName", userName);
                                 intent.putExtra("userRating", userRating);
                                 intent.putExtra("detailRemark", detailRemark);
@@ -95,15 +97,17 @@ public class CoursePage extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(CoursePage.this, CourseDetail.class);
 
+                                // fetch from the server
                                 String[] userName = {"user1", "user2", "user3"};
-                                String[] userRating = {"3.5", "3.6", "3.7"};
+                                String[] userRating = {"3.5", "3.6", "5.0"};
                                 String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
+                                String description = "This is a description of this course";
 
                                 intent.putExtra("username", username);
                                 intent.putExtra("courseName", course.getCourseName());
+                                intent.putExtra("description", description);
                                 intent.putExtra("userName", userName);
                                 intent.putExtra("userRating", userRating);
                                 intent.putExtra("detailRemark", detailRemark);
