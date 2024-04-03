@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.hku.course.utils.HttpPostRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -77,43 +81,37 @@ public class CourseDetail extends AppCompatActivity {
                 // handle the submit
                 String url = "http://8q9020g440.vicp.fun/course/submit";
 
-                RequestBody requestBody = new FormBody.Builder()
-                        .add("userName", username)
-                        .add("rating", String.valueOf(userRating))
-                        .add("remark", comment)
-                        .build();
+                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("username", username);
+                    json.put("userRating", userRating);
+                    json.put("comment", comment);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
 
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(CourseDetail.this, "Network Error", Toast.LENGTH_SHORT).show();
-                                // handle the new remark
-                                RemarkItem newRemark = new RemarkItem("Your Name", String.valueOf(userRating), comment);
-                                remarkItemList.add(newRemark);
-                                remarkAdapter.notifyDataSetChanged();
-                                commentEditText.setText("Leave your comment here");
-                                ratingBar.setRating(0);
-                            }
-                        });
+                        Looper.prepare();
+                        Toast.makeText(CourseDetail.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(CourseDetail.this, "Submit Success", Toast.LENGTH_SHORT).show();
-                                // handle the new remark
-                                RemarkItem newRemark = new RemarkItem("Your Name", String.valueOf(userRating), comment);
-                                remarkItemList.add(newRemark);
-                                remarkAdapter.notifyDataSetChanged();
-                                commentEditText.setText("Leave your comment here");
-                                ratingBar.setRating(0);
-                            }
-                        });
+                        Looper.prepare();
+                        Toast.makeText(CourseDetail.this, "Submit Success", Toast.LENGTH_SHORT).show();
+                        // handle the new remark
+                        RemarkItem newRemark = new RemarkItem("Your Name", String.valueOf(userRating), comment);
+                        remarkItemList.add(newRemark);
+                        remarkAdapter.notifyDataSetChanged();
+                        commentEditText.setText("Leave your comment here");
+                        ratingBar.setRating(0);
+                        Looper.loop();
                     }
                 });
             }

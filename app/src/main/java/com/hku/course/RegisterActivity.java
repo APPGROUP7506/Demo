@@ -14,11 +14,15 @@ import android.widget.Toast;
 
 import com.hku.course.utils.HttpPostRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -61,35 +65,37 @@ public class RegisterActivity extends AppCompatActivity {
         btn_reg_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://10.68.74.212/user/login";
+                String url = "https://68568bde.r3.cpolar.cn/user/register";
 
-                //请求传入的参数
-                RequestBody requestBody = new FormBody.Builder()
-                        .add("email", et_reg_email.getText().toString())
-                        .add("phone", et_reg_phone.getText().toString())
-                        .add("hkuid", et_reg_hkuid.getText().toString())
-                        .add("username", et_reg_username.getText().toString())
-                        .add("password", et_reg_password.getText().toString())
-                        .build();
+                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("email", et_reg_email.getText().toString());
+                    json.put("phone", et_reg_phone.getText().toString());
+                    json.put("hkuid", et_reg_hkuid.getText().toString());
+                    json.put("username", et_reg_username.getText().toString());
+                    json.put("password", et_reg_password.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
 
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Looper.prepare();
                         Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
-                        ///////////
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
                         Looper.loop();
-                        ///////////
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Looper.prepare();
+                        /// prepare for the login status
+                        Log.d("test2", response.body().string());
+                        ///
                         Toast.makeText(getApplicationContext(), "Register success", Toast.LENGTH_SHORT).show();
-                        Log.d("test", "Success");
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -107,6 +113,5 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

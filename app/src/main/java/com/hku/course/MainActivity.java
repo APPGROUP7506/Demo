@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,11 +13,15 @@ import android.widget.Toast;
 
 import com.hku.course.utils.HttpPostRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -48,25 +53,23 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://10.68.74.212:8080/user/login";
+                String url = "https://68568bde.r3.cpolar.cn/user/login";
 
-                //请求传入的参数
-                RequestBody requestBody = new FormBody.Builder()
-                        .add("username", et_username.getText().toString())
-                        .add("password", et_password.getText().toString())
-                        .build();
+                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("username", et_username.getText().toString());
+                    json.put("password", et_password.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Looper.prepare();
                         Toast.makeText(MainActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
-                        ///////////
-                        Intent intent = new Intent(MainActivity.this, MainPage.class);
-                        intent.putExtra("username", et_username.getText().toString());
-                        startActivity(intent);
-                        finish();
-                        //////////
                         Looper.loop();
                     }
 
@@ -74,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         Looper.prepare();
                         Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                        // response.body().toString();
+                        // Log.d("test", response.body().string());
+
                         Intent intent = new Intent(MainActivity.this, MainPage.class);
                         intent.putExtra("username", et_username.getText().toString());
                         startActivity(intent);
                         finish();
-
                         Looper.loop();
                     }
                 });

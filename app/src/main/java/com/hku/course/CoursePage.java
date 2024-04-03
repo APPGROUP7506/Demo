@@ -57,7 +57,7 @@ public class CoursePage extends AppCompatActivity {
             public void onButtonClick(int position) {
                 CourseItem course = courseList.get(position);
                 // Set the url
-                String url = "http://8q9020g440.vicp.fun/course/detail";
+                String url = "https://68568bde.r3.cpolar.cn/course/detail/" + course.getCourseName();
 
                 // Request for new data
                 RequestBody requestBody = new FormBody.Builder()
@@ -94,27 +94,30 @@ public class CoursePage extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(CoursePage.this, CourseDetail.class);
+                         // runOnUiThread(new Runnable() {
+                         //   @Override
+                         //   public void run() {
+                        Intent intent = new Intent(CoursePage.this, CourseDetail.class);
+
+                        Log.d("test", response.body().string());
+
 
                                 // fetch from the server
-                                String[] userName = {"user1", "user2", "user3"};
-                                String[] userRating = {"3.5", "3.6", "5.0"};
-                                String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
-                                String description = "This is a description of this course";
+                        String[] userName = {"user1", "user2", "user3"};
+                        String[] userRating = {"3.5", "3.6", "5.0"};
+                        String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
+                        String description = "This is a description of this course";
 
-                                intent.putExtra("username", username);
-                                intent.putExtra("courseName", course.getCourseName());
-                                intent.putExtra("description", description);
-                                intent.putExtra("userName", userName);
-                                intent.putExtra("userRating", userRating);
-                                intent.putExtra("detailRemark", detailRemark);
+                        intent.putExtra("username", username);
+                        intent.putExtra("courseName", course.getCourseName());
+                        intent.putExtra("description", description);
+                        intent.putExtra("userName", userName);
+                        intent.putExtra("userRating", userRating);
+                        intent.putExtra("detailRemark", detailRemark);
 
-                                startActivity(intent);
-                            }
-                        });
+                        startActivity(intent);
+                            //}
+                        //});
                     }
                 });
             }
