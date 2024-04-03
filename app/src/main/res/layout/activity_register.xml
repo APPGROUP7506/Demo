@@ -102,15 +102,16 @@
     <Button
         android:id="@+id/btn_reg_register"
         android:layout_below="@id/edit_reg_hkuid"
+        android:layout_alignLeft="@id/edit_reg_hkuid"
         android:layout_marginTop="6dp"
+        android:layout_marginLeft="-20dp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_signin"
         android:text="Regester"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_alignStart="@id/edit_reg_hkuid" />
 
 
     <Button
@@ -119,12 +120,12 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_reg_hkuid"
+        android:layout_alignRight="@id/edit_reg_hkuid"
+        android:layout_marginRight="-20dp"
         android:background="@drawable/bg_signin"
         android:text="Log in"
         android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:layout_marginStart="240dp"
-        android:layout_marginLeft="240dp" />
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

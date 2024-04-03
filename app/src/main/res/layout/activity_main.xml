@@ -60,12 +60,13 @@
         android:layout_marginTop="6dp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/edit_password"
         android:background="@drawable/bg_signin"
         android:text="SIGN IN"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="-20dp"
+        android:layout_marginLeft="-20dp" />
 
 
     <Button
@@ -74,12 +75,13 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_password"
+        android:layout_alignRight="@id/edit_password"
         android:background="@drawable/bg_signin"
         android:text="Regester"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginStart="240dp"
-        android:layout_marginLeft="240dp" />
+        android:layout_marginRight="-20dp"
+        android:layout_marginEnd="-20dp" />
 
 
 </RelativeLayout>
