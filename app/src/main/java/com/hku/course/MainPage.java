@@ -48,9 +48,13 @@ public class MainPage extends AppCompatActivity {
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Looper.prepare();
-                        Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
-                        ///////////
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         Intent intent = new Intent(MainPage.this, CoursePage.class);
 
                         // get the course detail information from here and sent to the next page
@@ -64,13 +68,10 @@ public class MainPage extends AppCompatActivity {
                         intent.putExtra("rating", rating);
 
                         startActivity(intent);
-                        //////////
-                        Looper.loop();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        // response.body().toString();
                         Intent intent = new Intent(MainPage.this, CoursePage.class);
 
                         // get the course detail information from here and sent to the next page
@@ -92,14 +93,11 @@ public class MainPage extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Looper.prepare();
                 Toast.makeText(MainPage.this, "Logout Success", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainPage.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-                Looper.loop();
             }
         });
     }
 }
-

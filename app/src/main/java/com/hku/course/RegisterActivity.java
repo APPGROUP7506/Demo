@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_reg_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://8q9020g440.vicp.fun/user/login";
+                String url = "http://10.68.74.212/user/login";
 
                 //请求传入的参数
                 RequestBody requestBody = new FormBody.Builder()
