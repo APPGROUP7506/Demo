@@ -1,132 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Regester"
+        android:textSize="40sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        />
 
-        <TextView
-            android:id="@+id/tv_reg_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email:" />
-
-        <EditText
-            android:id="@+id/edit_reg_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/sign"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Regester a new acount"
+        android:textSize="20sp"
+        android:textColor="#b3b3b3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        />
 
-        <TextView
-            android:id="@+id/tv_reg_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone:" />
-
-        <EditText
-            android:id="@+id/edit_reg_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edit_reg_username"
+        android:layout_marginTop="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:inputType = "text"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:hint="Username:"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:id="@+id/tv_reg_hkuid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HKU id:" />
-
-        <EditText
-            android:id="@+id/edit_reg_hkuid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edit_reg_password"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:layout_below="@id/edit_reg_username"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:id="@+id/tv_reg_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username:" />
-
-        <EditText
-            android:id="@+id/edit_reg_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/edit_reg_email"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:inputType="text"
+        android:hint="Email"
+        android:layout_below="@id/edit_reg_password"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:id="@+id/tv_reg_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password:" />
+    <EditText
+        android:id="@+id/edit_reg_phone"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="Phone"
+        android:layout_below="@id/edit_reg_email"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
-        <EditText
-            android:id="@+id/edit_reg_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#000000" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edit_reg_hkuid"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="HKU ID"
+        android:layout_below="@id/edit_reg_phone"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="5dp"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/btn_reg_register"
-        android:layout_width="match_parent"
+        android:layout_below="@id/edit_reg_hkuid"
+        android:layout_marginTop="6dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Register"/>
+        android:background="@drawable/bg_signin"
+        android:text="Regester"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp" />
+
 
     <Button
         android:id="@+id/btn_reg_login"
-        android:layout_width="match_parent"
+        android:layout_marginTop="6dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Already have account? Login"/>
+        android:layout_below="@id/edit_reg_hkuid"
+        android:background="@drawable/bg_signin"
+        android:text="Log in"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_marginStart="240dp"
+        android:layout_marginLeft="240dp" />
 
-</LinearLayout>
+
+</RelativeLayout>
