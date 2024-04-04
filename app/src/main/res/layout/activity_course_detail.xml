@@ -1,131 +1,170 @@
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/school2"/>
+
+    <ImageView
+        android:layout_width="380dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/white"
+        android:alpha="0.5"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/hku"
+        />
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:text="香   港   大   学\nTHE UNIVERSITTY OF HONG KONG"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="510dp"
+        />
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!-- course name -->
-        <TextView
-            android:id="@+id/courseNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="COMP 7506" />
 
-        <!-- course information -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
-            <!-- course description -->
+
+
+            <!-- course name -->
             <TextView
+                android:id="@+id/courseNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Description: " />
+                android:text="COMP 7506" />
 
-            <TextView
-                android:id="@+id/courseSummaryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="      This course is offered by the department of the Computer science to gain a basic understanding of the android development" />
-
-        </LinearLayout>
-
-        <!-- separate line -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
-        <!-- my remark -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="My remark: " />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/ratingText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Overall result: "
-                    android:textSize="14sp" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:rating="0"
-                    android:stepSize="1"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/commentEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Leave your comments here"
-                android:inputType="textMultiLine" />
-
-            <!-- submit button -->
+            <!-- course information -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:padding="16dp">
 
-                <Button
-                    android:id="@+id/submitButton"
+                <!-- course description -->
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Submit" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Description: " />
+
+                <TextView
+                    android:id="@+id/courseSummaryTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="      This course is offered by the department of the Computer science to gain a basic understanding of the android development" />
+
             </LinearLayout>
 
+            <!-- separate line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-            <!--Peers remark -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="Peers Review: " />
-
-            <ListView
-                android:id="@+id/lv_course_detail"
+            <!-- my remark -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="My remark: " />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/ratingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Overall result: "
+                        android:textSize="14sp" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:rating="0"
+                        android:stepSize="1"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/commentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Leave your comments here"
+                    android:inputType="textMultiLine" />
+
+                <!-- submit button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/submitButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Submit" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
+
+                <!--Peers remark -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Peers Review: " />
+
+                <ListView
+                    android:id="@+id/lv_course_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>
