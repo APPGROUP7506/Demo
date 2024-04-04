@@ -4,7 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.hku.course.CoursePage">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/school2"/>
 
+    <ImageView
+        android:layout_width="380dp"
+        android:layout_height="590dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/white"
+        android:alpha="0.5"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="610dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/hku"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="香   港   大   学\nTHE UNIVERSITTY OF HONG KONG"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="650dp"
+        />
     <TextView
         android:id="@+id/courseNameTextView"
         android:layout_width="wrap_content"
