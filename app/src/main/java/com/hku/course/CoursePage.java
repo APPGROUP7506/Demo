@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.hku.course.utils.HttpPostRequest;
 
 import java.io.IOException;
@@ -56,68 +59,57 @@ public class CoursePage extends AppCompatActivity {
             @Override
             public void onButtonClick(int position) {
                 CourseItem course = courseList.get(position);
-                // Set the url
-                String url = "https://68568bde.r3.cpolar.cn/course/detail/" + course.getCourseName();
 
-                // Request for new data
+                String url = "https://6ed035d9.r6.cpolar.top/course/detail/" + course.getCourseName();
+
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("courseName", course.getCourseName())
                         .build();
 
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
-                                ////////////////
-                                Intent intent = new Intent(CoursePage.this, CourseDetail.class);
-
-                                String[] userName = {"user1", "user2", "user3"};
-                                String[] userRating = {"3.5", "3.6", "5.0"};
-                                String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
-                                String description = "This is a description of this course";
-
-                                intent.putExtra("username", username);
-                                intent.putExtra("courseName", course.getCourseName());
-                                intent.putExtra("description", description);
-                                intent.putExtra("userName", userName);
-                                intent.putExtra("userRating", userRating);
-                                intent.putExtra("detailRemark", detailRemark);
-
-                                startActivity(intent);
-                                //////////////////
-                            }
-                        });
+                        Looper.prepare();
+                        Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                         // runOnUiThread(new Runnable() {
-                         //   @Override
-                         //   public void run() {
-                        Intent intent = new Intent(CoursePage.this, CourseDetail.class);
 
-                        Log.d("test", response.body().string());
+                        String responseData = response.body().string();
 
+                        Gson gson = new Gson();
+                        JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
+                        JsonArray dataArray = jsonObject.getAsJsonArray("data");
 
-                                // fetch from the server
-                        String[] userName = {"user1", "user2", "user3"};
-                        String[] userRating = {"3.5", "3.6", "5.0"};
-                        String[] detailRemark = {"Remark 1", "Remark 2", "Remark 3"};
+                        List<String> userName = new ArrayList<>();
+                        List<String> userRating = new ArrayList<>();
+                        List<String> detailRemark = new ArrayList<>();
+
+                        for (JsonElement element : dataArray) {
+                            JsonObject dataObject = element.getAsJsonObject();
+                            String userId = dataObject.get("userName").getAsString();
+                            double score = dataObject.get("score").getAsDouble() / 20;
+                            String userComment = dataObject.get("userComment").getAsString();
+
+                            userName.add(userId);
+                            userRating.add(String.valueOf(score));
+                            detailRemark.add(userComment);
+                        }
+
+                        // realization of the description
                         String description = "This is a description of this course";
+
+                        Intent intent = new Intent(CoursePage.this, CourseDetail.class);
 
                         intent.putExtra("username", username);
                         intent.putExtra("courseName", course.getCourseName());
                         intent.putExtra("description", description);
-                        intent.putExtra("userName", userName);
-                        intent.putExtra("userRating", userRating);
-                        intent.putExtra("detailRemark", detailRemark);
+                        intent.putExtra("userName", userName.toArray(new String[0]));
+                        intent.putExtra("userRating", userRating.toArray(new String[0]));
+                        intent.putExtra("detailRemark", detailRemark.toArray(new String[0]));
 
                         startActivity(intent);
-                            //}
-                        //});
                     }
                 });
             }

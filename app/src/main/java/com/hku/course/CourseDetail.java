@@ -75,7 +75,7 @@ public class CourseDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String username = getIntent().getStringExtra("username");
-                float userRating = ratingBar.getRating();
+                float userRating = ratingBar.getRating() * 20;
                 String comment = commentEditText.getText().toString();
 
                 // handle the submit
