@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hku.course.utils.HttpPostRequest;
 
 import org.json.JSONException;
@@ -42,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btn_reg_login;
 
-    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_reg_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://68568bde.r3.cpolar.cn/user/register";
+                String url = "https://6ed035d9.r6.cpolar.top/user/register";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
@@ -92,13 +93,22 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Looper.prepare();
-                        /// prepare for the login status
-                        Log.d("test2", response.body().string());
-                        ///
-                        Toast.makeText(getApplicationContext(), "Register success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                        String responseData = response.body().string();
+                        Gson gson = new Gson();
+                        JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
+
+                        int registerStatus = jsonObject.get("code").getAsInt();
+
+                        if (registerStatus == 1){
+                            Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "An unknown Error happened, please try again", Toast.LENGTH_SHORT).show();
+                        }
+
                         Looper.loop();
                     }
                 });

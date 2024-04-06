@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hku.course.utils.HttpPostRequest;
 
 import org.json.JSONException;
@@ -20,7 +21,6 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://68568bde.r3.cpolar.cn/user/login";
+                String url = "https://6ed035d9.r6.cpolar.top/user/login";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
@@ -76,20 +76,31 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Looper.prepare();
-                        Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                        // Log.d("test", response.body().string());
 
-                        Intent intent = new Intent(MainActivity.this, MainPage.class);
-                        intent.putExtra("username", et_username.getText().toString());
-                        startActivity(intent);
-                        finish();
+                        String responseData = response.body().string();
+                        Gson gson = new Gson();
+                        JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
+
+                        int loginStatus = jsonObject.get("code").getAsInt();
+
+                        if (loginStatus == 1){
+                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, MainPage.class);
+                            intent.putExtra("username", et_username.getText().toString());
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(MainActivity.this, "Username or Password Error", Toast.LENGTH_SHORT).show();
+                            et_username.setText("");
+                            et_password.setText("");
+                        }
+
                         Looper.loop();
                     }
                 });
             }
         });
 
-        //为注册按钮设置点击事件
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

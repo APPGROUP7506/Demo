@@ -50,7 +50,7 @@ public class MainPage extends AppCompatActivity {
         btn_view_courses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://68568bde.r3.cpolar.cn/course/all";
+                String url = "https://6ed035d9.r6.cpolar.top/course/all";
 
                 RequestBody requestBody = new FormBody.Builder()
                         .build();
@@ -58,52 +58,40 @@ public class MainPage extends AppCompatActivity {
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Looper.prepare();
+                        Toast.makeText(MainPage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Intent intent = new Intent(MainPage.this, CoursePage.class);
 
                         String responseData = response.body().string();
-                        // Log.d("test", response.body().string());
 
                         Gson gson = new Gson();
                         JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
                         JsonArray dataArray = jsonObject.getAsJsonArray("data");
 
-                        List<String> courseName = new ArrayList<String>();
-                        List<String> teacherName = new ArrayList<String>();
-                        List<String> rating = new ArrayList<String>();
+                        List<String> courseName = new ArrayList<>();
+                        List<String> teacherName = new ArrayList<>();
+                        List<String> rating = new ArrayList<>();
 
-
-                        CourseItem[] courseItems = new CourseItem[dataArray.size()];
-                        for (int i = 0; i < dataArray.size(); i++) {
-                            JsonElement element = dataArray.get(i);
-                            String courseNumber = element.getAsJsonObject().get("courseNumber").getAsString();
-                            String courseTeacher = element.getAsJsonObject().get("courseTeacher").getAsString();
-                            double courseScore = element.getAsJsonObject().get("courseScore").getAsDouble() / 20;
+                        for (JsonElement element : dataArray) {
+                            JsonObject courseObject = element.getAsJsonObject();
+                            String courseNumber = courseObject.get("courseNumber").getAsString();
+                            String courseTeacher = courseObject.get("courseTeacher").getAsString();
+                            double courseScore = courseObject.get("courseScore").getAsDouble() / 20;
 
                             courseName.add(courseNumber);
                             teacherName.add(courseTeacher);
                             rating.add(String.valueOf(courseScore));
                         }
 
-
-                        // get the course detail information from here and sent to the next page
-                        String[] courseName2 = courseName.toArray(new String[courseName.size()]);
-                        String[] teacherName2 = teacherName.toArray(new String[teacherName.size()]);
-                        String[] rating2 = rating.toArray(new String[rating.size()]);
-
+                        Intent intent = new Intent(MainPage.this, CoursePage.class);
                         intent.putExtra("username", username);
-                        intent.putExtra("courseName", courseName2);
-                        intent.putExtra("teacherName", teacherName2);
-                        intent.putExtra("rating", rating2);
+                        intent.putExtra("courseName", courseName.toArray(new String[0]));
+                        intent.putExtra("teacherName", teacherName.toArray(new String[0]));
+                        intent.putExtra("rating", rating.toArray(new String[0]));
 
                         startActivity(intent);
                     }
