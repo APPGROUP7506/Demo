@@ -14,6 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hku.course.utils.HttpPostRequest;
 
 import org.json.JSONException;
@@ -75,18 +77,19 @@ public class CourseDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String username = getIntent().getStringExtra("username");
-                float userRating = ratingBar.getRating() * 20;
+                double userRating = ratingBar.getRating() * 20;
                 String comment = commentEditText.getText().toString();
 
                 // handle the submit
-                String url = "http://8q9020g440.vicp.fun/course/submit";
+                String url = "https://ecd311.r20.cpolar.top/course/comment";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
                 try {
-                    json.put("username", username);
-                    json.put("userRating", userRating);
-                    json.put("comment", comment);
+                    json.put("courseNumber", courseName);
+                    json.put("userName", username);
+                    json.put("score", userRating);
+                    json.put("userComment", comment);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -96,22 +99,42 @@ public class CourseDetail extends AppCompatActivity {
                 HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Looper.prepare();
-                        Toast.makeText(CourseDetail.this, "Network Error", Toast.LENGTH_SHORT).show();
-                        Looper.loop();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(CourseDetail.this, "Network Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Looper.prepare();
-                        Toast.makeText(CourseDetail.this, "Submit Success", Toast.LENGTH_SHORT).show();
-                        // handle the new remark
-                        RemarkItem newRemark = new RemarkItem("Your Name", String.valueOf(userRating), comment);
-                        remarkItemList.add(newRemark);
-                        remarkAdapter.notifyDataSetChanged();
-                        commentEditText.setText("Leave your comment here");
-                        ratingBar.setRating(0);
-                        Looper.loop();
+                        String responseData = null;
+                        try {
+                            responseData = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
+
+                        int submitStatus = jsonObject.get("code").getAsInt();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (submitStatus == 1){
+                                    Toast.makeText(CourseDetail.this, "Submit Success", Toast.LENGTH_SHORT).show();
+                                    RemarkItem newRemark = new RemarkItem(username, String.valueOf(userRating / 20), comment);
+                                    remarkItemList.add(newRemark);
+                                    remarkAdapter.notifyDataSetChanged();
+                                    commentEditText.setText("");
+                                    ratingBar.setRating(0);
+                                }else{
+                                    Toast.makeText(CourseDetail.this, "Fail to submit, please try again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 });
             }

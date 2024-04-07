@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_reg_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://6ed035d9.r6.cpolar.top/user/register";
+                String url = "https://ecd311.r20.cpolar.top/user/register";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();

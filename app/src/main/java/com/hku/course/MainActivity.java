@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://6ed035d9.r6.cpolar.top/user/login";
+                String url = "https://ecd311.r20.cpolar.top/user/login";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();

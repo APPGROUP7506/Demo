@@ -60,7 +60,7 @@ public class CoursePage extends AppCompatActivity {
             public void onButtonClick(int position) {
                 CourseItem course = courseList.get(position);
 
-                String url = "https://6ed035d9.r6.cpolar.top/course/detail/" + course.getCourseName();
+                String url = "https://ecd311.r20.cpolar.top/course/detail/" + course.getCourseName();
 
                 RequestBody requestBody = new FormBody.Builder()
                         .build();
@@ -110,6 +110,64 @@ public class CoursePage extends AppCompatActivity {
                         intent.putExtra("detailRemark", detailRemark.toArray(new String[0]));
 
                         startActivity(intent);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String url = "https://ecd311.r20.cpolar.top/course/all";
+
+        RequestBody requestBody = new FormBody.Builder()
+                .build();
+
+        HttpPostRequest.okhttpPost(url, requestBody, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CoursePage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(responseData, JsonObject.class);
+                JsonArray dataArray = jsonObject.getAsJsonArray("data");
+
+                List<String> courseName = new ArrayList<>();
+                List<String> teacherName = new ArrayList<>();
+                List<String> rating = new ArrayList<>();
+
+                for (JsonElement element : dataArray) {
+                    JsonObject courseObject = element.getAsJsonObject();
+                    String courseNumber = courseObject.get("courseNumber").getAsString();
+                    String courseTeacher = courseObject.get("courseTeacher").getAsString();
+                    double courseScore = courseObject.get("courseScore").getAsDouble() / 20;
+
+                    courseName.add(courseNumber);
+                    teacherName.add(courseTeacher);
+                    rating.add(String.valueOf(courseScore));
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        courseList.clear();
+
+                        for (int i = 0; i < courseName.size(); i++) {
+                            CourseItem course = new CourseItem(courseName.get(i), teacherName.get(i), rating.get(i));
+                            courseList.add(course);
+                        }
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
