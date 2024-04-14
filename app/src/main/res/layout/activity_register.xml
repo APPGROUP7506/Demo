@@ -152,7 +152,7 @@
         android:layout_below="@id/edit_reg_hkuid"
         android:layout_alignRight="@id/edit_reg_hkuid"
         android:layout_marginRight="-20dp"
-        android:background="@drawable/bg_signin"
+        android:background="@drawable/button3"
         android:text="Log in"
         android:textColor="#ffffff"
         android:textSize="20sp" />
