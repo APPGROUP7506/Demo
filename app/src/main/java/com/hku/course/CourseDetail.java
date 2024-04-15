@@ -35,7 +35,7 @@ import okhttp3.Response;
 public class CourseDetail extends AppCompatActivity {
 
     private TextView courseNameTextView;
-    private TextView courseSummaryTextView;
+    // private TextView courseSummaryTextView;
     private RatingBar ratingBar;
     private EditText commentEditText;
     private Button submitButton;
@@ -48,7 +48,7 @@ public class CourseDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         courseNameTextView = findViewById(R.id.courseNameTextView);
-        courseSummaryTextView = findViewById(R.id.courseSummaryTextView);
+        // courseSummaryTextView = findViewById(R.id.courseSummaryTextView);
         ratingBar = findViewById(R.id.ratingBar);
         commentEditText = findViewById(R.id.commentEditText);
         submitButton = findViewById(R.id.submitButton);
@@ -56,14 +56,14 @@ public class CourseDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String description = intent.getStringExtra("description");
+        // String description = intent.getStringExtra("description");
         String courseName = intent.getStringExtra("courseName");
         String[] userName = intent.getStringArrayExtra("userName");
         String[] userRating = intent.getStringArrayExtra("userRating");
         String[] detailRemark = intent.getStringArrayExtra("detailRemark");
 
         courseNameTextView.setText(courseName);
-        courseSummaryTextView.setText(description);
+        // courseSummaryTextView.setText(description);
         // Set up the ListView with peer remarks
         for (int i = 0; i < userName.length; i++) {
             RemarkItem item = new RemarkItem(userName[i], userRating[i], detailRemark[i]);

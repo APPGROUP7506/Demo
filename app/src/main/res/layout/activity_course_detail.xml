@@ -57,21 +57,21 @@
                 android:text="COMP 7506" />
 
             <!-- course information -->
-            <LinearLayout
+            <!-- LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- course description -->
-                <TextView
+                <!- course description -->
+                <!-- TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:text="Description: " />
+                    android:text="Description: " -->
 
-                <TextView
+                <!-- TextView
                     android:id="@+id/courseSummaryTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
             </LinearLayout>
 
-            <!-- separate line -->
+            <!- separate line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
