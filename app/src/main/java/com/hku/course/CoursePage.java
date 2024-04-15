@@ -60,7 +60,7 @@ public class CoursePage extends AppCompatActivity {
             public void onButtonClick(int position) {
                 CourseItem course = courseList.get(position);
 
-                String url = "https://ecd311.r20.cpolar.top/course/detail/" + course.getCourseName();
+                String url = "http://1.14.241.22:8080/course/detail/" + course.getCourseName();
 
                 RequestBody requestBody = new FormBody.Builder()
                         .build();
@@ -119,7 +119,7 @@ public class CoursePage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String url = "https://ecd311.r20.cpolar.top/course/all";
+        String url = "http://1.14.241.22:8080/course/all";
 
         RequestBody requestBody = new FormBody.Builder()
                 .build();

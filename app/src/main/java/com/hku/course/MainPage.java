@@ -50,7 +50,7 @@ public class MainPage extends AppCompatActivity {
         btn_view_courses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://ecd311.r20.cpolar.top/course/all";
+                String url = "http://1.14.241.22:8080/course/all";
 
                 RequestBody requestBody = new FormBody.Builder()
                         .build();

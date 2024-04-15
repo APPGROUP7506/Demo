@@ -81,7 +81,7 @@ public class CourseDetail extends AppCompatActivity {
                 String comment = commentEditText.getText().toString();
 
                 // handle the submit
-                String url = "https://ecd311.r20.cpolar.top/course/comment";
+                String url = "http://1.14.241.22:8080/course/comment";
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
