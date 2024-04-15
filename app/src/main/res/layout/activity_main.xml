@@ -60,7 +60,7 @@
         android:id="@+id/sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in to your acount"
+        android:text="Sign in to your account"
         android:textSize="20sp"
         android:textColor="#b3b3b3"
         android:layout_centerHorizontal="true"

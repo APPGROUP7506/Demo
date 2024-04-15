@@ -97,14 +97,10 @@ public class CoursePage extends AppCompatActivity {
                             detailRemark.add(userComment);
                         }
 
-                        // realization of the description
-                        // String description = "This is a description of this course";
-
                         Intent intent = new Intent(CoursePage.this, CourseDetail.class);
 
                         intent.putExtra("username", username);
                         intent.putExtra("courseName", course.getCourseName());
-                        // intent.putExtra("description", description);
                         intent.putExtra("userName", userName.toArray(new String[0]));
                         intent.putExtra("userRating", userRating.toArray(new String[0]));
                         intent.putExtra("detailRemark", detailRemark.toArray(new String[0]));

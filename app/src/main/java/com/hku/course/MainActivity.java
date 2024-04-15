@@ -43,13 +43,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginPage() {
-        //绑定控件
         et_username = findViewById(R.id.edit_username);
         et_password = findViewById(R.id.edit_password);
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
 
-        //为登录按钮设置点击事件
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
